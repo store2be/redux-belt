@@ -1,0 +1,24 @@
+{
+  "name": "redux-belt",
+  "version": "0.1.0",
+  "description": "Opinionated helpers for Redux and Redux-Saga",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/store2be/redux-belt.git"
+  },
+  "keywords": [
+    "javascript",
+    "redux",
+    "redux-saga",
+  ],
+  "author": "store2be GmbH <tech@store2be.com>",
+  "bugs": {
+    "url": "https://github.com/store2be/redux-belt/issues"
+  },
+  "homepage": "https://github.com/store2be/redux-belt#readme",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
