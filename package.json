@@ -18,7 +18,11 @@
     "url": "https://github.com/store2be/redux-belt/issues"
   },
   "homepage": "https://github.com/store2be/redux-belt#readme",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack -p",
+    "test": "jest --watchAll",
+    "test-ci": "jest"
+  },
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.23.1",
