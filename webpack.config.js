@@ -7,8 +7,8 @@ module.exports = {
     'redux-belt': './index.js',
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].min.js',
+    path: path.resolve(__dirname, './lib'),
+    filename: 'index.js',
   },
   module: {
     rules: [

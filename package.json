@@ -2,7 +2,7 @@
   "name": "redux-belt",
   "version": "0.1.0",
   "description": "Opinionated helpers for Redux and Redux-Saga to cut down boilerplate",
-  "main": "index.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
