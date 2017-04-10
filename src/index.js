@@ -1,2 +1,4 @@
-export { default as actionsNamespace } from './actions-namespace'
-export { default as simpleAsync } from './simple-async'
+import actionsNamespace from './actions-namespace'
+import simpleAsync from './simple-async'
+
+export { actionsNamespace, simpleAsync }

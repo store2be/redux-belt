@@ -2,7 +2,7 @@
   "name": "redux-belt",
   "version": "0.1.0",
   "description": "Opinionated helpers for Redux and Redux-Saga to cut down boilerplate",
-  "main": "lib/index.js",
+  "main": "lib/redux-belt.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/store2be/redux-belt#readme",
   "scripts": {
-    "build": "webpack -p",
+    "build": "webpack",
     "test": "jest --watchAll",
     "test-ci": "jest"
   },
@@ -36,6 +36,6 @@
     "webpack": "^2.2.1"
   },
   "peerDependencies": {
-    "redux-saga": "^0.14.3"
+    "redux-saga": "^0.15.3"
   }
 }
