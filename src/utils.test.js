@@ -5,7 +5,7 @@ describe('action', () => {
     expect(typeof utils.action).toBe('function')
   })
 
-  it('returns a well formed action', () => {
+  it('returns a well formed action with the default meta', () => {
     expect(utils.action('thetype', { message: 'the payload' })).toEqual({
       type: 'thetype',
       payload: {
@@ -43,10 +43,11 @@ describe('actionCreator', () => {
     expect(typeof utils.actionCreator('action type')).toBe('function')
   })
 
-  it('ultimately produces the expected action', () => {
+  it('ultimately produces the expected action with the default meta', () => {
     const action = {
       type: 'AN_ACTION',
       payload: { id: 21, data: 'the_data' },
+      meta: {},
     }
     // const result = actionCreator(action.type)(action.payload)
     expect(JSON.stringify(utils.actionCreator(action.type)(action.payload))).toBe(

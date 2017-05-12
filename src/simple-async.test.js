@@ -330,7 +330,10 @@ describe('simpleAsync', () => {
   })
 
   describe('with a shouldRun that returns false', () => {
-    const action = utils.action('FETCH_RESOURCE', { id: 12 })
+    const action = utils.action('FETCH_RESOURCE', { id: 12 }, {
+      failureType: 'FETCH_RESOURCE_FAILURE',
+      successType: 'FETCH_RESOURCE_SUCCESS',
+    })
     let next
 
     beforeAll(() => {

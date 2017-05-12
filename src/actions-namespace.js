@@ -10,12 +10,15 @@ export default function actionsNamespace(prefix, baseActionTypes) {
 
   for (let i = 0; i < baseActionTypes.length; i += 1) {
     const actionType = baseActionTypes[i]
+    const successType = `${prefix}/${actionType}_SUCCESS`
+    const failureType = `${prefix}/${actionType}_FAILURE`
+
     types[actionType] = `${prefix}/${actionType}`
-    types[`${actionType}_SUCCESS`] = `${prefix}/${actionType}_SUCCESS`
-    types[`${actionType}_FAILURE`] = `${prefix}/${actionType}_FAILURE`
+    types[`${actionType}_SUCCESS`] = successType
+    types[`${actionType}_FAILURE`] = failureType
 
     const camelCaseActionType = snakeCaseToCamel(actionType)
-    actions[camelCaseActionType] = actionCreator(types[actionType])
+    actions[camelCaseActionType] = actionCreator(types[actionType], { successType, failureType })
   }
 
   return { types, actions }

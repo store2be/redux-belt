@@ -2,8 +2,8 @@ export function action(type, payload, meta) {
   return { type, payload, meta }
 }
 
-export function actionCreator(actionType) {
-  return (payload, meta) => action(actionType, payload, meta)
+export function actionCreator(actionType, defaultMeta) {
+  return (payload, meta) => action(actionType, payload, { ...defaultMeta, ...meta })
 }
 
 export function snakeCaseToCamel(actionType) {
