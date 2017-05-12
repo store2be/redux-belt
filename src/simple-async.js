@@ -25,7 +25,7 @@ export default function simpleAsync(descriptor) {
       const response = yield call(...descriptor.effect(action.payload))
       yield put({ type: successType, payload: response.data, meta: { originalAction: action } })
       if (descriptor.afterSuccess) {
-        const pending = descriptor.afterSuccess(response, action.payload)
+        const pending = descriptor.afterSuccess(response, action.payload, action.meta)
         if (pending instanceof Array) {
           for (let i = 0; i < pending.length; i += 1) {
             yield put(pending[i])
@@ -36,7 +36,7 @@ export default function simpleAsync(descriptor) {
       }
     } catch (error) {
       if (error.response && error.response.status === 404 && descriptor.on404) {
-        const pending = descriptor.on404(action.payload)
+        const pending = descriptor.on404(action.payload, action.meta)
         if (pending instanceof Array) {
           for (let i = 0; i < pending.length; i += 1) {
             yield put(pending[i])
