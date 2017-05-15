@@ -1,28 +1,29 @@
 const path = require('path')
 const webpack = require('webpack')
 
-module.exports = {
-  context: path.resolve(__dirname, './src'),
-  entry: {
-    'redux-belt': './index.js',
-  },
+const config = {
+  entry: __dirname + '/src/index.js',
+  devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].min.js',
+    path: __dirname + '/lib',
+    filename: 'redux-belt.js',
+    library: 'redux-belt',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015'],
-            plugins: ['transform-object-rest-spread'],
-          },
-        }],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
     ],
   },
+  resolve: {
+    modules: [path.resolve('./src'), path.join(__dirname, 'node_modules')],
+    extensions: ['.js'],
+  },
 }
+
+module.exports = config
