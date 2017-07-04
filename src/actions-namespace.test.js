@@ -14,13 +14,17 @@ describe('actionsNamespace', () => {
 
   it('returns an object with types', () => {
     const result = actionsNamespace('theprefix', types)
-    expect(Object.keys(result.types).length).toBe(types.length * 3)
+    expect(Object.keys(result).filter(key => (
+      typeof result[key] === 'string'
+    )).length).toBe(types.length * 3)
   })
 
   it('returns an object with actions with the default meta', () => {
     const result = actionsNamespace('theprefix', types)
-    expect(Object.keys(result.actions).length).toBe(types.length)
-    expect(result.actions.addSpices('payload')).toEqual({
+    expect(Object.keys(result).filter(key => (
+      typeof result[key] === 'function'
+    )).length).toBe(types.length)
+    expect(result.addSpices('payload')).toEqual({
       type: 'theprefix/ADD_SPICES',
       payload: 'payload',
       meta: {

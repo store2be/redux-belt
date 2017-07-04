@@ -5,7 +5,7 @@ import * as generators from './generators'
 import * as utils from './utils'
 import { crudReducer, crudActionsNamespace } from './crud'
 
-const { types: t, actions } = crudActionsNamespace('test')
+const actions = crudActionsNamespace('test')
 
 describe('utils/crud', () => {
   describe('crudReducer', () => {
@@ -17,7 +17,7 @@ describe('utils/crud', () => {
       test('does not react', () => {
         jsc.assertForall(generators.crudReducerState, (state) => {
           const before = JSON.stringify(state)
-          const result = JSON.stringify(crudReducer(state, {}, t))
+          const result = JSON.stringify(crudReducer(state, {}, actions))
           const after = JSON.stringify(state)
           return before === result && result === after
         })
@@ -29,7 +29,7 @@ describe('utils/crud', () => {
         jsc.assertForall(generators.crudReducerState, jsc.dict(jsc.json), (state, payload) => {
           const before = JSON.stringify(state)
           const expected = JSON.stringify(update(state, { loading: { create: { $set: true } } }))
-          const result = JSON.stringify(crudReducer(state, actions.create(payload), t))
+          const result = JSON.stringify(crudReducer(state, actions.create(payload), actions))
           const after = JSON.stringify(state)
           return before === after && result === expected
         })
@@ -40,7 +40,7 @@ describe('utils/crud', () => {
       test('sets the create loading to false, reset changes and sets single', () => {
         jsc.assertForall(generators.crudReducerState, jsc.dict(jsc.json), (state, payload) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(t.CREATE_SUCCESS, payload), t)
+          const result = crudReducer(state, utils.action(actions.CREATE_SUCCESS, payload), actions)
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.create === false &&
@@ -57,7 +57,7 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = crudReducer(state, utils.action(t.CREATE_FAILURE, payload), t)
+            const result = crudReducer(state, utils.action(actions.CREATE_FAILURE, payload), actions)
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.create === false &&
@@ -74,7 +74,7 @@ describe('utils/crud', () => {
           generators.uuid,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = crudReducer(state, actions.delete(payload), t)
+            const result = crudReducer(state, actions.delete(payload), actions)
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.deleting === true
@@ -88,7 +88,7 @@ describe('utils/crud', () => {
         jsc.assertForall(generators.crudReducerState, jsc.json, (state, payload) => {
           const before = JSON.stringify(state)
           const result = JSON.stringify(
-            crudReducer(state, utils.action(t.DELETE_FAILURE, payload), t))
+            crudReducer(state, utils.action(actions.DELETE_FAILURE, payload), actions))
           const after = JSON.stringify(state)
           return before === result && result === after
         })
@@ -102,10 +102,10 @@ describe('utils/crud', () => {
         }
 
         expect(crudReducer(before, {
-          type: t.DELETE_SUCCESS,
+          type: actions.DELETE_SUCCESS,
           payload: undefined,
           meta: { originalAction: { payload: { id: 'def' } } },
-        }, t)).toEqual({ index: [{ id: 'abc', num: 3 }, { id: 'ghi', num: 5 }] })
+        }, actions)).toEqual({ index: [{ id: 'abc', num: 3 }, { id: 'ghi', num: 5 }] })
       })
     })
 
@@ -117,7 +117,7 @@ describe('utils/crud', () => {
             loading: { index: { $set: true } },
             filters: { $set: payload },
           }))
-          const result = JSON.stringify(crudReducer(state, actions.fetchIndex(payload), t))
+          const result = JSON.stringify(crudReducer(state, actions.fetchIndex(payload), actions))
           const after = JSON.stringify(state)
           return before === after && result === expected
         })
@@ -129,7 +129,7 @@ describe('utils/crud', () => {
         jsc.assertForall(generators.crudReducerState, jsc.json, (state, payload) => {
           const before = JSON.stringify(state)
           const result = JSON.stringify(
-            crudReducer(state, utils.action(t.DELETE_FAILURE, payload), t))
+            crudReducer(state, utils.action(actions.DELETE_FAILURE, payload), actions))
           const after = JSON.stringify(state)
           return before === result && result === after
         })
@@ -145,7 +145,7 @@ describe('utils/crud', () => {
       test('sets loading to false, the index to the payload, and metadata accordingly', () => {
         jsc.assertForall(generators.crudReducerState, indexResult, (state, payload) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(t.FETCH_INDEX_SUCCESS, payload), t)
+          const result = crudReducer(state, utils.action(actions.FETCH_INDEX_SUCCESS, payload), actions)
           const after = JSON.stringify(state)
           return before === after &&
             JSON.stringify(result.index) === JSON.stringify(payload.data) &&
@@ -159,7 +159,7 @@ describe('utils/crud', () => {
       test('sets loading to true and keeps single', () => {
         jsc.assertForall(generators.crudReducerState, generators.uuid, (state, payload) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, actions.fetchSingle(payload), t)
+          const result = crudReducer(state, actions.fetchSingle(payload), actions)
           const after = JSON.stringify(state)
           return before === after &&
             JSON.stringify(state.single) === JSON.stringify(result.single) &&
@@ -172,7 +172,7 @@ describe('utils/crud', () => {
       test('sets loading to false', () => {
         jsc.assertForall(generators.crudReducerState, (state) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(t.FETCH_SINGLE_FAILURE, 'fail'), t)
+          const result = crudReducer(state, utils.action(actions.FETCH_SINGLE_FAILURE, 'fail'), actions)
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.single === false
@@ -184,7 +184,7 @@ describe('utils/crud', () => {
       test('stores the fetched item', () => {
         jsc.assertForall(generators.crudReducerState, (state) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(t.FETCH_SINGLE_SUCCESS, 'thatsit'), t)
+          const result = crudReducer(state, utils.action(actions.FETCH_SINGLE_SUCCESS, 'thatsit'), actions)
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.single === false &&
@@ -197,7 +197,7 @@ describe('utils/crud', () => {
       test('sets the loading state', () => {
         jsc.assertForall(generators.crudReducerState, (state) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, actions.update({ something: 'a' }), t)
+          const result = crudReducer(state, actions.update({ something: 'a' }), actions)
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.update === true
@@ -209,7 +209,7 @@ describe('utils/crud', () => {
       test('resets the changes and saves the updated value', () => {
         jsc.assertForall(generators.crudReducerState, (state) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(t.UPDATE_SUCCESS, 'thatsit'), t)
+          const result = crudReducer(state, utils.action(actions.UPDATE_SUCCESS, 'thatsit'), actions)
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.update === false &&
@@ -232,10 +232,10 @@ describe('utils/crud', () => {
               ...state,
               index: newIndex,
             }
-            const result = crudReducer(newState, utils.action(t.UPDATE_SUCCESS, {
+            const result = crudReducer(newState, utils.action(actions.UPDATE_SUCCESS, {
               id: 'abc',
               name: 'thatsthat',
-            }), t)
+            }), actions)
             return result.index[randomIndex].id === 'abc' &&
               result.index[randomIndex].name === 'thatsthat' &&
               result.index.length === state.index.length
@@ -247,10 +247,10 @@ describe('utils/crud', () => {
         test('does not affect index', () => {
           jsc.assertForall(generators.crudReducerState, (state) => {
             const before = JSON.stringify(state.index)
-            const result = crudReducer(state, utils.action(t.UPDATE_SUCCESS, {
+            const result = crudReducer(state, utils.action(actions.UPDATE_SUCCESS, {
               id: 'abc',
               name: 'thatsit',
-            }), t)
+            }), actions)
             const after = JSON.stringify(state.index)
             return before === after && after === JSON.stringify(result.index)
           })
@@ -265,7 +265,7 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = crudReducer(state, utils.action(t.UPDATE_FAILURE, payload), t)
+            const result = crudReducer(state, utils.action(actions.UPDATE_FAILURE, payload), actions)
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.update === false &&
@@ -279,7 +279,7 @@ describe('utils/crud', () => {
     describe('on MERGE_CHANGES', () => {
       test('merges the changes', () => {
         const before = { changes: { a: 'b' } }
-        const result = crudReducer(before, actions.mergeChanges({ potato: 'salad' }), t)
+        const result = crudReducer(before, actions.mergeChanges({ potato: 'salad' }), actions)
         expect(result).toEqual({ changes: { a: 'b', potato: 'salad' } })
       })
     })
@@ -287,7 +287,7 @@ describe('utils/crud', () => {
     describe('on SET_CHANGES', () => {
       test('sets the changes', () => {
         const before = { changes: { a: 'b' } }
-        const result = crudReducer(before, actions.setChanges({ potato: 'salad' }), t)
+        const result = crudReducer(before, actions.setChanges({ potato: 'salad' }), actions)
         expect(result).toEqual({ changes: { potato: 'salad' } })
       })
     })
