@@ -1,0 +1,8 @@
+*Checklist for new releases:*
+- [ ] Change the version in package.json
+- [ ] Update the changelog
+- [ ] Tag the final, reviewed commit
+
+**VERY IMPORTANT:**
+- [ ] Run `yarn build` and add the release build!
+
