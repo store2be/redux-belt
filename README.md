@@ -13,6 +13,20 @@ Here are the design-defining constraints that `redux-belt` introduces:
 
 Visit the [redux-belt homepage](https://store2be.github.io/redux-belt/).
 
+## Installation
+
+### With yarn
+
+```
+$ yarn add redux-belt
+```
+
+### With npm
+
+```
+$ npm install --save redux-belt
+```
+
 ## Generating action creators and action types
 
 Redux actions creators should be doomed to staying dumb from the moment of their inception. The goal of a Redux action is to notify the app of an intention to mutate the data. From the Redux docs:
