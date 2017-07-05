@@ -21,5 +21,5 @@ export default function actionsNamespace(prefix, baseActionTypes) {
     actions[camelCaseActionType] = actionCreator(types[actionType], { successType, failureType })
   }
 
-  return { types, actions }
+  return { ...types, ...actions }
 }
