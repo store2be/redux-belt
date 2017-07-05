@@ -4,6 +4,8 @@
 
 This library provides several highly opinionated helpers which ought to be useful while developing big apps with React, Redux and Sagas. These helpers ensure the keeping of best practices and their main goal is to reduce the amount of boilerplate introduced by Redux code, while avoiding conflict with Redux design decisions.
 
+**redux-belt uses semantic versioning. So until 1.0.0 is reached expect many breaking changes.**
+
 Here are the design-defining constraints that `redux-belt` introduces:
 - Redux action creators should contain no logic. This would not work with `redux-thunk`, but we're using `redux-saga` here. Your application's logic should be handled by the structure of the actions themselves, or by the final consumers of an action's payload.
 - When using an action creator, the generated action's payload should stay untouched from the moment it is created, until it reaches its destination within the app (for example when it's used in an API call, or when it's used in a reducer).
