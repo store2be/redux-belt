@@ -11,6 +11,8 @@ Here are the design-defining constraints that `redux-belt` introduces:
 - When using an action creator, the generated action's payload should stay untouched from the moment it is created, until it reaches its destination within the app (for example when it's used in an API call, or when it's used in a reducer).
 - Action types, namespacing and action creators should all be given consistent names, and this name should only be defined in one place.
 
+Visit the [redux-belt homepage](https://store2be.github.io/redux-belt/).
+
 ## Generating action creators and action types
 
 Redux actions creators should be doomed to staying dumb from the moment of their inception. The goal of a Redux action is to notify the app of an intention to mutate the data. From the Redux docs:

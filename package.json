@@ -13,11 +13,16 @@
     "redux",
     "redux-saga"
   ],
-  "author": "store2be GmbH <tech@store2be.com>",
+  "author": "store2be GmbH <tech@store2be.com> (https://tech.store2be.com/)",
+  "contributors": [
+    "Tom Houlé <tom.houle@store2be.com> (https://github.com/tomhoule)",
+    "Peter Gundel <peter.gundel@store2be.com> (https://github.com/peterfication)",
+    "Fausto Núñez Alberro <fausto.nunez@store2be.com> (https://github.com/brainlessdeveloper)"
+  ],
   "bugs": {
     "url": "https://github.com/store2be/redux-belt/issues"
   },
-  "homepage": "https://github.com/store2be/redux-belt#readme",
+  "homepage": "https://store2be.github.io/redux-belt/",
   "scripts": {
     "build": "webpack",
     "test": "jest --watchAll",
