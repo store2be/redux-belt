@@ -1,6 +1,6 @@
 {
   "name": "redux-belt",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Opinionated helpers for Redux and Redux-Saga to cut down boilerplate",
   "main": "lib/redux-belt.js",
   "license": "MIT",
