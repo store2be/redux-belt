@@ -5,6 +5,9 @@
 
 ## Unreleased
 
+## [0.2.1] - 2017-07-18
+* ✨ Fix mistakes for npm release
+
 ## [0.2.0] - 2017-07-18
 * ✨  Add utility to crash wrong reducers in dev
 
