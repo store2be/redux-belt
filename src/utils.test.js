@@ -1,3 +1,4 @@
+import jsc from 'jsverify'
 import * as utils from './utils'
 
 describe('action', () => {
@@ -134,3 +135,21 @@ describe('updateEntryWithId', () => {
   })
 })
 
+describe('strict', () => {
+  it('returns an object with the same keys', () => {
+    jsc.assertForall(jsc.dict(jsc.string), (target) => {
+      expect(Object.keys(utils.strict(target))).toEqual(Object.keys(target))
+      return true
+    })
+  })
+
+  it('throws when an undefined property is accessed', () => {
+    const target = { a: 'b', c: 'd' }
+    expect(() => utils.strict(target).something).toThrow(TypeError)
+  })
+
+  it('allows normal access to other properties', () => {
+    const target = { a: 'b' }
+    expect(utils.strict(target).a).toBe('b')
+  })
+})

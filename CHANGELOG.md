@@ -5,6 +5,9 @@
 
 ## Unreleased
 
+## [0.2.0] - 2017-07-18
+* ✨  Add utility to crash wrong reducers in dev
+
 ## [0.1.0] - 2017-07-04
 * ✨ Initial version with usable CRUD helpers
 

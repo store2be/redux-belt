@@ -48,3 +48,21 @@ export function replaceEntry(newEntry) {
 export function identity(argument) { return argument }
 
 export function noop() {}
+
+/**
+ * Wraps an object and throws if an undefined property is accessed.
+ *
+ * This is meant for use with actions objects in dev mode. It catches cases
+ * where we handle undefined action types in reducers.
+ */
+export function strict(target) { // target is our actionTypes object
+  return new Proxy(target, {
+    get: (inner, property) => {
+      if (property in inner) {
+        return inner[property]
+      } else {
+        throw new TypeError(`Tried to access non-existent action type or creator ${property} on object: ${JSON.stringify(inner)}`)
+      }
+    }
+  })
+}
