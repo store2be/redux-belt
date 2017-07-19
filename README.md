@@ -1,6 +1,7 @@
 # redux-belt
 
 [![Build Status](https://travis-ci.org/store2be/redux-belt.svg?branch=master)](https://travis-ci.org/store2be/redux-belt)
+[![codecov](https://codecov.io/gh/store2be/redux-belt/branch/master/graph/badge.svg)](https://codecov.io/gh/store2be/redux-belt)
 
 This library provides several highly opinionated helpers which ought to be useful while developing big apps with React, Redux and Sagas. These helpers ensure the keeping of best practices and their main goal is to reduce the amount of boilerplate introduced by Redux code, while avoiding conflict with Redux design decisions.
 
