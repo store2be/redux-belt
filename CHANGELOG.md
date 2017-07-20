@@ -5,6 +5,9 @@
 
 ## Unreleased
 
+## [0.2.2] - 2017-07-20
+* 📦 Set redux-saga and immutability-helper as peer dependencies
+
 ## [0.2.1] - 2017-07-18
 * ✨ Fix mistakes for npm release
 
