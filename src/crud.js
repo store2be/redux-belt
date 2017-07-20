@@ -4,6 +4,7 @@ import actions from './actions'
 import { replaceEntry } from './utils'
 
 const crudActionTypes = [
+  'CANCEL_LOADING',
   'CREATE',
   'DELETE',
   'FETCH_INDEX',
@@ -35,21 +36,17 @@ export const crudState = {
   filters: {},
   loading: {
     create: false,
+    delete: false,
     index: false,
     single: false,
     update: false,
   },
   index: [],
-  metaData: {},
+  meta: {},
   single: {},
 }
 
-/**
- * This function is meant to be used in default position on reducer switches.
- * It does not have its own state but expects the standard CRUD reducer state
- * to be passed to it. It does *not* work as a standalone reducer.
- */
-export function crudReducer(state, action, t) {
+export const configureCrudReducer = extractors => (state, action, t) => {
   const { meta, payload, type } = action
   switch (type) {
     case t.CREATE:
@@ -64,27 +61,31 @@ export function crudReducer(state, action, t) {
           create: { $set: false },
         },
         changes: { $set: {} },
-        single: { $set: action.payload },
+        errors: { $set: [] },
+        single: { $set: extractors.single(action, state) },
       })
     case t.CREATE_FAILURE:
       return update(state, {
         loading: {
           create: { $set: false },
         },
-        errors: { $set: action.payload.errors },
+        errors: { $set: extractors.error(action, state) },
       })
+
     case t.DELETE:
       return update(state, {
         loading: {
-          deleting: { $set: true },
+          delete: { $set: true },
         },
       })
     case t.DELETE_SUCCESS:
+    case t.DELETE_FAILURE:
       return update(state, {
-        index: {
-          $apply: entries => entries.filter(entry => entry.id !== meta.originalAction.payload.id),
+        loading: {
+          delete: { $set: false },
         },
       })
+
     case t.FETCH_INDEX:
       return update(state, {
         filters: { $set: payload || {} },
@@ -97,19 +98,20 @@ export function crudReducer(state, action, t) {
         loading: {
           index: { $set: false },
         },
-        index: { $set: payload.data },
-        metaData: { $set: payload.meta_data },
+        index: { $set: extractors.index(action, state) },
+        meta: { $set: extractors.meta(action, state) },
       })
+    case t.FETCH_INDEX_FAILURE:
+      return update(state, {
+        loading: {
+          index: { $set: false },
+        },
+      })
+
     case t.FETCH_SINGLE:
       return update(state, {
         loading: {
           single: { $set: true },
-        },
-      })
-    case t.FETCH_SINGLE_FAILURE:
-      return update(state, {
-        loading: {
-          single: { $set: false },
         },
       })
     case t.FETCH_SINGLE_SUCCESS:
@@ -117,8 +119,15 @@ export function crudReducer(state, action, t) {
         loading: {
           single: { $set: false },
         },
-        single: { $set: action.payload },
+        single: { $set: extractors.single(action, state) },
       })
+    case t.FETCH_SINGLE_FAILURE:
+      return update(state, {
+        loading: {
+          single: { $set: false },
+        },
+      })
+
     case t.MERGE_CHANGES:
       return update(state, {
         changes: { $merge: action.payload },
@@ -127,18 +136,12 @@ export function crudReducer(state, action, t) {
       return update(state, {
         changes: { $set: action.payload },
       })
+
     case t.UPDATE:
       return update(state, {
         loading: {
           update: { $set: true },
         },
-      })
-    case t.UPDATE_FAILURE:
-      return update(state, {
-        loading: {
-          update: { $set: false },
-        },
-        errors: { $set: action.payload.errors },
       })
     case t.UPDATE_SUCCESS:
       return update(state, {
@@ -147,11 +150,24 @@ export function crudReducer(state, action, t) {
         },
         changes: { $set: {} },
         errors: { $set: [] },
-        index: { $apply: replaceEntry(action.payload) },
-        single: { $set: action.payload },
+        index: { $apply: replaceEntry(extractors.single(action, state)) },
+        single: { $set: extractors.single(action, state) },
+      })
+    case t.UPDATE_FAILURE:
+      return update(state, {
+        loading: {
+          update: { $set: false },
+        },
+        errors: { $set: extractors.error(action, state) },
       })
     default:
       return state
   }
 }
 
+export const crudReducer = configureCrudReducer({
+  index: action => action.payload,
+  meta: () => {},
+  error: action => action.payload,
+  single: action => action.payload,
+})
