@@ -28,9 +28,6 @@
     "test": "jest --watchAll",
     "test-ci": "jest && codecov"
   },
-  "dependencies": {
-    "immutability-helper": "^2.2.2"
-  },
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
@@ -40,11 +37,13 @@
     "codecov": "^2.2.0",
     "jest": "^19.0.2",
     "jsverify": "^0.8.2",
-    "redux-saga": "^0.14.3",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "immutability-helper": "2.x",
+    "redux-saga": "0.15.x"
   },
   "peerDependencies": {
-    "redux-saga": "^0.15.3"
+    "immutability-helper": "2.x",
+    "redux-saga": "0.15.x"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
