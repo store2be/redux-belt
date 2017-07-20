@@ -141,6 +141,22 @@ describe('utils/crud', () => {
       })
     })
 
+    describe('on DELETE_SUCCESS', () => {
+      test('sets the delete loading to false', () => {
+        jsc.assertForall(
+          generators.crudReducerState,
+          generators.uuid,
+          (state, payload) => {
+            const before = JSON.stringify(state)
+            const result = myCrudReducer(state, utils.action(actions.DELETE_SUCCESS, payload), actions)
+            const after = JSON.stringify(state)
+            return before === after &&
+              result.loading.delete === false
+          }
+        )
+      })
+    })
+
     describe('on DELETE_FAILURE', () => {
       test('sets the delete loading to false', () => {
         jsc.assertForall(
