@@ -3,7 +3,12 @@ import update from 'immutability-helper'
 
 import * as generators from './generators'
 import * as utils from './utils'
-import { configureCrudReducer, actionsIncludingCrud } from './crud'
+import {
+  actionsIncludingCrud,
+  configureCrudReducer,
+  crudReducer,
+  defaultExtractors,
+} from './crud'
 
 const actions = actionsIncludingCrud('test')
 const myCrudReducer = configureCrudReducer({
@@ -14,7 +19,50 @@ const myCrudReducer = configureCrudReducer({
 })
 
 describe('utils/crud', () => {
-  describe('configureCrudReducer', () => {
+  describe('the default extractors', () => {
+    ['index', 'error', 'single'].forEach(extractor => (
+      describe(extractor, () => {
+        test('returns the full action payload', () => {
+          expect(defaultExtractors[extractor]({ payload: 'Hello' })).toEqual('Hello')
+        })
+      })
+    ))
+
+    describe('meta', () => {
+      test('returns an empty object', () => {
+        expect(defaultExtractors.meta({ payload: 'No please' })).toEqual({})
+      })
+    })
+  })
+
+  describe('the default crudReducer', () => {
+    test('is a function', () => {
+      expect(typeof crudReducer).toBe('function')
+    })
+
+    test('uses the full payload for all extractors except meta', () => {
+      const expectedDefaultReducer = configureCrudReducer({
+        index: action => action.payload,
+        meta: () => {},
+        error: action => action.payload,
+        single: action => action.payload,
+      })
+      Object.values(actions)
+        .filter(action => typeof action === 'function')
+        .forEach(action => (
+          jsc.assertForall(generators.crudReducerState, (state) => {
+            const before = JSON.stringify(state)
+            const expected = JSON.stringify(expectedDefaultReducer, action(), actions)
+            const result = JSON.stringify(myCrudReducer, action(), actions)
+            const after = JSON.stringify(state)
+            return before === after && result === expected
+          })
+        )
+      )
+    })
+  })
+
+  describe('configureCrudReducer with example extractors', () => {
     test('is a function', () => {
       expect(typeof configureCrudReducer).toBe('function')
     })

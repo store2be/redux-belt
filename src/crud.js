@@ -165,9 +165,11 @@ export const configureCrudReducer = extractors => (state, action, t) => {
   }
 }
 
-export const crudReducer = configureCrudReducer({
+export const defaultExtractors = {
   index: action => action.payload,
-  meta: () => {},
+  meta: () => ({}),
   error: action => action.payload,
   single: action => action.payload,
-})
+}
+
+export const crudReducer = configureCrudReducer(defaultExtractors)
