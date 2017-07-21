@@ -52,7 +52,7 @@ describe('actionCreator', () => {
     }
     // const result = actionCreator(action.type)(action.payload)
     expect(JSON.stringify(utils.actionCreator(action.type)(action.payload))).toBe(
-      JSON.stringify(action)
+      JSON.stringify(action),
     )
   })
 })
@@ -103,28 +103,28 @@ describe('updateEntryWithId', () => {
   test('does not change entries with different ids', () => {
     expect(
       utils.updateEntryWithId([oldEntry, unrelatedEntry],
-        newEntry)[1].id
+        newEntry)[1].id,
     ).toEqual(unrelatedEntry.id)
   })
 
   test('does not change the order of entries', () => {
     expect(utils.updateEntryWithId(
       [unrelatedEntry, oldEntry, unrelatedEntry],
-      newEntry)[2].id
+      newEntry)[2].id,
     ).toEqual(unrelatedEntry.id)
   })
 
   test('does not change the array length', () => {
     expect(utils.updateEntryWithId(
       [unrelatedEntry, oldEntry, unrelatedEntry],
-      newEntry
+      newEntry,
     ).length).toEqual(3)
   })
 
   test('replaces the old entry with the new one', () => {
     expect(utils.updateEntryWithId(
       [unrelatedEntry, oldEntry, unrelatedEntry],
-      newEntry
+      newEntry,
     )[1].id).toEqual(newEntry.id)
   })
 

@@ -1,11 +1,10 @@
 const path = require('path')
-const webpack = require('webpack')
 
 const config = {
-  entry: __dirname + '/src/index.js',
+  entry: __dirname.join('/src/index.js'),
   devtool: 'source-map',
   output: {
-    path: __dirname + '/lib',
+    path: __dirname.join('/lib'),
     filename: 'redux-belt.js',
     library: 'redux-belt',
     libraryTarget: 'umd',

@@ -1,5 +1,10 @@
 import jsc from 'jsverify'
 
+const errorEntry = jsc.record({
+  target: jsc.asciinestring,
+  message: jsc.string,
+})
+
 export const makeCrudReducerBase = resourceGenerator => ({
   changes: jsc.dict(jsc.json),
   errors: jsc.array(errorEntry),
@@ -26,17 +31,12 @@ export const crudReducerState = jsc.record(crudReducerBase)
  */
 export const uuid = jsc.bless({
   generator: () =>
-  'xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx'.replace(
-    /[xy]/g,
-    () => Math.floor(Math.random() * 16).toString(16)),
-})
-
-const errorEntry = jsc.record({
-  target: jsc.asciinestring,
-  message: jsc.string,
+    'xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      () => Math.floor(Math.random() * 16).toString(16),
+    ),
 })
 
 export const errorResponse = jsc.record({
   errors: jsc.array(errorEntry),
 })
-
