@@ -1,0 +1,11 @@
+---
+engines:
+ duplication:
+   enabled: true
+ metrics:
+   enabled: true
+ coverage:
+   enabled: true
+exclude_paths:
+  - lib/**/*
+  - '**.test.js'
