@@ -3,9 +3,9 @@ import update from 'immutability-helper'
 
 import * as generators from './generators'
 import * as utils from './utils'
-import { crudReducer, crudActionsNamespace } from './crud'
+import { crudReducer, actionsIncludingCrud } from './crud'
 
-const actions = crudActionsNamespace('test')
+const actions = actionsIncludingCrud('test')
 
 describe('utils/crud', () => {
   describe('crudReducer', () => {

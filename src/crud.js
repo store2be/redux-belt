@@ -1,6 +1,6 @@
 import update from 'immutability-helper'
 
-import actionsNamespace from './actions-namespace'
+import actions from './actions'
 import { replaceEntry } from './utils'
 
 const crudActionTypes = [
@@ -13,8 +13,8 @@ const crudActionTypes = [
   'UPDATE',
 ]
 
-export function crudActionsNamespace(prefix, actionTypes = []) {
-  return actionsNamespace(prefix, [...crudActionTypes, ...actionTypes])
+export function actionsIncludingCrud(prefix, actionTypes = []) {
+  return actions(prefix, [...crudActionTypes, ...actionTypes])
 }
 
 /**

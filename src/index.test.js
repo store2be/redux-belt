@@ -1,22 +1,22 @@
 import {
-  actionsNamespace,
+  actions,
   crudReducer,
   crudState,
-  crudActionsNamespace,
+  actionsIncludingCrud,
   simpleAsync,
 } from './'
 
 describe('redux-belt', () => {
-  test('exports actionsNamespace', () => {
-    expect(typeof actionsNamespace).toBe('function')
+  test('exports actions', () => {
+    expect(typeof actions).toBe('function')
   })
 
   test('exports simpleAsync', () => {
     expect(typeof simpleAsync).toBe('function')
   })
 
-  test('exports crudActionsNamespace', () => {
-    expect(typeof crudActionsNamespace).toBe('function')
+  test('exports actionsIncludingCrud', () => {
+    expect(typeof actionsIncludingCrud).toBe('function')
   })
 
   test('exports crudReducer', () => {

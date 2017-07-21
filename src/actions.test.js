@@ -1,6 +1,6 @@
-import actionsNamespace from './actions-namespace'
+import actions from './actions'
 
-describe('actionsNamespace', () => {
+describe('actions', () => {
   const types = [
     'ADD_SPICES',
     'REMOVE',
@@ -9,18 +9,18 @@ describe('actionsNamespace', () => {
   ]
 
   it('is a function', () => {
-    expect(typeof actionsNamespace).toBe('function')
+    expect(typeof actions).toBe('function')
   })
 
   it('returns an object with types', () => {
-    const result = actionsNamespace('theprefix', types)
+    const result = actions('theprefix', types)
     expect(Object.keys(result).filter(key => (
       typeof result[key] === 'string'
     )).length).toBe(types.length * 3)
   })
 
   it('returns an object with actions with the default meta', () => {
-    const result = actionsNamespace('theprefix', types)
+    const result = actions('theprefix', types)
     expect(Object.keys(result).filter(key => (
       typeof result[key] === 'function'
     )).length).toBe(types.length)

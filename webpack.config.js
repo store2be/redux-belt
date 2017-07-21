@@ -1,10 +1,10 @@
 const path = require('path')
 
 const config = {
-  entry: __dirname.join('/src/index.js'),
+  entry: `${__dirname}/src/index.js`,
   devtool: 'source-map',
   output: {
-    path: __dirname.join('/lib'),
+    path: `${__dirname}/lib`,
     filename: 'redux-belt.js',
     library: 'redux-belt',
     libraryTarget: 'umd',
