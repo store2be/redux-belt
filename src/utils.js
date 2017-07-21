@@ -60,9 +60,9 @@ export function strict(target) { // target is our actionTypes object
     get: (inner, property) => {
       if (property in inner) {
         return inner[property]
-      } else {
-        throw new TypeError(`Tried to access non-existent action type or creator ${property} on object: ${JSON.stringify(inner)}`)
       }
-    }
+
+      throw new TypeError(`Tried to access non-existent action type or creator ${property} on object: ${JSON.stringify(inner)}`)
+    },
   })
 }

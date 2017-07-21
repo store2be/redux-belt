@@ -57,12 +57,16 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = crudReducer(state, utils.action(actions.CREATE_FAILURE, payload), actions)
+            const result = crudReducer(
+              state,
+              utils.action(actions.CREATE_FAILURE, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.create === false &&
               result.errors.length === payload.errors.length
-          }
+          },
         )
       })
     })
@@ -78,7 +82,7 @@ describe('utils/crud', () => {
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.deleting === true
-          }
+          },
         )
       })
     })
@@ -145,7 +149,11 @@ describe('utils/crud', () => {
       test('sets loading to false, the index to the payload, and metadata accordingly', () => {
         jsc.assertForall(generators.crudReducerState, indexResult, (state, payload) => {
           const before = JSON.stringify(state)
-          const result = crudReducer(state, utils.action(actions.FETCH_INDEX_SUCCESS, payload), actions)
+          const result = crudReducer(
+            state,
+            utils.action(actions.FETCH_INDEX_SUCCESS, payload),
+            actions,
+          )
           const after = JSON.stringify(state)
           return before === after &&
             JSON.stringify(result.index) === JSON.stringify(payload.data) &&
@@ -265,13 +273,17 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = crudReducer(state, utils.action(actions.UPDATE_FAILURE, payload), actions)
+            const result = crudReducer(
+              state,
+              utils.action(actions.UPDATE_FAILURE, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.update === false &&
               Object.keys(result.changes).length === Object.keys(state.changes).length &&
               result.errors.length === payload.errors.length
-          }
+          },
         )
       })
     })
