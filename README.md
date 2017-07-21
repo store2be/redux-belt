@@ -30,7 +30,7 @@ $ npm install --save redux-belt
 ```
 
 ## Wiki
-- [actionsNamespace](https://github.com/store2be/redux-belt/wiki/actionsNamespace): generates action creators and action types.
-- [crudActionsNamespace](https://github.com/store2be/redux-belt/wiki/crudActionsNamespace): removes reducer boilerplate for common CRUD functionality.
+- [actions](https://github.com/store2be/redux-belt/wiki/actions): generates action creators and action types.
+- [actionsIncludingCrud](https://github.com/store2be/redux-belt/wiki/actionsIncludingCrud): removes reducer boilerplate for common CRUD functionality.
 - [simpleAsync](https://github.com/store2be/redux-belt/wiki/simpleAsync): side-effects with redux-saga.
 - [utils](https://github.com/store2be/redux-belt/wiki/utils): utilities like `strict` to catch undefined action types in development

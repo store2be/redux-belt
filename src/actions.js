@@ -1,11 +1,11 @@
 import { actionCreator, snakeCaseToCamel } from './utils'
 
-export default function actionsNamespace(prefix, baseActionTypes) {
+export default function actions(prefix, baseActionTypes) {
   if (!(baseActionTypes instanceof Array)) {
     throw new Error('Please supply an array of actions as strings as a second argument')
   }
 
-  const actions = {}
+  const actionCreators = {}
   const types = {}
 
   for (let i = 0; i < baseActionTypes.length; i += 1) {
@@ -18,8 +18,11 @@ export default function actionsNamespace(prefix, baseActionTypes) {
     types[`${actionType}_FAILURE`] = failureType
 
     const camelCaseActionType = snakeCaseToCamel(actionType)
-    actions[camelCaseActionType] = actionCreator(types[actionType], { successType, failureType })
+    actionCreators[camelCaseActionType] = actionCreator(
+      types[actionType],
+      { successType, failureType },
+    )
   }
 
-  return { ...types, ...actions }
+  return { ...types, ...actionCreators }
 }
