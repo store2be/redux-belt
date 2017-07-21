@@ -43,17 +43,21 @@ describe('utils/crud', () => {
     test('uses the full payload for all extractors except meta', () => {
       const expectedDefaultReducer = configureCrudReducer({
         index: action => action.payload,
-        meta: () => {},
+        meta: () => ({}),
         error: action => action.payload,
         single: action => action.payload,
       })
       Object.values(actions)
         .filter(action => typeof action === 'function')
         .forEach(action => (
-          jsc.assertForall(generators.crudReducerState, (state) => {
+          jsc.assertForall(
+            generators.crudReducerState,
+            // Payload shape is irrelevant as long as we pass one
+            generators.errorResponse,
+            (state, payload) => {
             const before = JSON.stringify(state)
             const expected = JSON.stringify(expectedDefaultReducer, action(), actions)
-            const result = JSON.stringify(myCrudReducer, action(), actions)
+            const result = JSON.stringify(myCrudReducer, action(payload), actions)
             const after = JSON.stringify(state)
             return before === after && result === expected
           })
