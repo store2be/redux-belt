@@ -32,7 +32,9 @@ $ npm install --save redux-belt
 ```
 
 ## Wiki
-- [actions](https://github.com/store2be/redux-belt/wiki/actions): generates action creators and action types.
 - [actionsIncludingCrud](https://github.com/store2be/redux-belt/wiki/actionsIncludingCrud): removes reducer boilerplate for common CRUD functionality.
+- [actions](https://github.com/store2be/redux-belt/wiki/actions): generates action creators and action types.
+- [configureCrudReducer](https://github.com/store2be/redux-belt/wiki/configureCrudReducer): make your own `crudReducer` that plays nice with your back-end API.
+- [crudReducer](https://github.com/store2be/redux-belt/wiki/crudReducer): a sane default reducer to help you build CRUD applications.
 - [simpleAsync](https://github.com/store2be/redux-belt/wiki/simpleAsync): side-effects with redux-saga.
-- [utils](https://github.com/store2be/redux-belt/wiki/utils): utilities like `strict` to catch undefined action types in development
+- [utils](https://github.com/store2be/redux-belt/wiki/utils): utilities like `strict` to catch undefined action types in development.
