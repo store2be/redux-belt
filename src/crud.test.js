@@ -55,14 +55,14 @@ describe('utils/crud', () => {
             // Payload shape is irrelevant as long as we pass one
             generators.errorResponse,
             (state, payload) => {
-            const before = JSON.stringify(state)
-            const expected = JSON.stringify(expectedDefaultReducer, action(), actions)
-            const result = JSON.stringify(myCrudReducer, action(payload), actions)
-            const after = JSON.stringify(state)
-            return before === after && result === expected
-          })
-        )
-      )
+              const before = JSON.stringify(state)
+              const expected = JSON.stringify(expectedDefaultReducer, action(), actions)
+              const result = JSON.stringify(myCrudReducer, action(payload), actions)
+              const after = JSON.stringify(state)
+              return before === after && result === expected
+            },
+          )
+        ))
     })
   })
 
@@ -102,7 +102,11 @@ describe('utils/crud', () => {
       test('sets the create loading to false, reset changes and sets single', () => {
         jsc.assertForall(generators.crudReducerState, jsc.dict(jsc.json), (state, payload) => {
           const before = JSON.stringify(state)
-          const result = myCrudReducer(state, utils.action(actions.CREATE_SUCCESS, payload), actions)
+          const result = myCrudReducer(
+            state,
+            utils.action(actions.CREATE_SUCCESS, payload),
+            actions,
+          )
           const after = JSON.stringify(state)
           return before === after &&
             result.loading.create === false &&
@@ -119,12 +123,16 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = myCrudReducer(state, utils.action(actions.CREATE_FAILURE, payload), actions)
+            const result = myCrudReducer(
+              state,
+              utils.action(actions.CREATE_FAILURE, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.create === false &&
               result.errors.length === payload.errors.length
-          }
+          },
         )
       })
     })
@@ -138,9 +146,8 @@ describe('utils/crud', () => {
             const before = JSON.stringify(state)
             const result = myCrudReducer(state, actions.delete(payload), actions)
             const after = JSON.stringify(state)
-            return before === after &&
-              result.loading.delete === true
-          }
+            return before === after && result.loading.delete === true
+          },
         )
       })
     })
@@ -152,11 +159,14 @@ describe('utils/crud', () => {
           generators.uuid,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = myCrudReducer(state, utils.action(actions.DELETE_SUCCESS, payload), actions)
+            const result = myCrudReducer(
+              state,
+              utils.action(actions.DELETE_SUCCESS, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
-            return before === after &&
-              result.loading.delete === false
-          }
+            return before === after && result.loading.delete === false
+          },
         )
       })
     })
@@ -168,11 +178,14 @@ describe('utils/crud', () => {
           generators.uuid,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = myCrudReducer(state, utils.action(actions.DELETE_FAILURE, payload), actions)
+            const result = myCrudReducer(
+              state,
+              utils.action(actions.DELETE_FAILURE, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
-            return before === after &&
-              result.loading.delete === false
-          }
+            return before === after && result.loading.delete === false
+          },
         )
       })
     })
@@ -199,7 +212,11 @@ describe('utils/crud', () => {
           const expected = JSON.stringify(update(state, {
             loading: { index: { $set: false } },
           }))
-          const result = JSON.stringify(myCrudReducer(state, utils.action(actions.FETCH_INDEX_FAILURE, payload), actions))
+          const result = JSON.stringify(myCrudReducer(
+            state,
+            utils.action(actions.FETCH_INDEX_FAILURE, payload),
+            actions,
+          ))
           const after = JSON.stringify(state)
           return before === after && result === expected
         })
@@ -215,7 +232,11 @@ describe('utils/crud', () => {
       test('sets loading to false, the index to the payload, and metadata accordingly', () => {
         jsc.assertForall(generators.crudReducerState, indexResult, (state, payload) => {
           const before = JSON.stringify(state)
-          const result = myCrudReducer(state, utils.action(actions.FETCH_INDEX_SUCCESS, payload), actions)
+          const result = myCrudReducer(
+            state,
+            utils.action(actions.FETCH_INDEX_SUCCESS, payload),
+            actions,
+          )
           const after = JSON.stringify(state)
           return before === after &&
             JSON.stringify(result.index) === JSON.stringify(payload.data) &&
@@ -335,12 +356,16 @@ describe('utils/crud', () => {
           generators.errorResponse,
           (state, payload) => {
             const before = JSON.stringify(state)
-            const result = myCrudReducer(state, utils.action(actions.UPDATE_FAILURE, payload), actions)
+            const result = myCrudReducer(
+              state,
+              utils.action(actions.UPDATE_FAILURE, payload),
+              actions,
+            )
             const after = JSON.stringify(state)
             return before === after &&
               result.loading.update === false &&
               result.errors.length === payload.errors.length
-          }
+          },
         )
       })
     })

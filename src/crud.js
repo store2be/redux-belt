@@ -47,7 +47,7 @@ export const crudState = {
 }
 
 export const configureCrudReducer = extractors => (state, action, t) => {
-  const { meta, payload, type } = action
+  const { payload, type } = action
   switch (type) {
     case t.CREATE:
       return update(state, {

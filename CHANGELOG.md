@@ -5,7 +5,7 @@
 
 ## Unreleased
 
-## [0.3.0] - 2017-07-20
+## [0.3.0] - 2017-07-21
 * 🔨 Introduce crudReducer configurability
 Breaking changes:
 - `crudReducer` does not remove or add items to the index on `CREATE` or `DELETE` success actions, but it does update existing values on index (on `UPDATE` success) searching by the `id`.
