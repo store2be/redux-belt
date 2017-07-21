@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/store2be/redux-belt.svg?branch=master)](https://travis-ci.org/store2be/redux-belt)
 [![codecov](https://codecov.io/gh/store2be/redux-belt/branch/master/graph/badge.svg)](https://codecov.io/gh/store2be/redux-belt)
+[![Code Climate](https://codeclimate.com/github/store2be/redux-belt.svg)](https://codeclimate.com/github/store2be/redux-belt)
 [![npm version](https://img.shields.io/npm/v/redux-belt.svg?style=flat-square)](https://www.npmjs.com/package/redux-belt)
 [![npm version](https://img.shields.io/npm/dm/redux-belt.svg?style=flat-square)](https://www.npmjs.com/package/redux-belt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/store2be/redux-belt/blob/cool-badge/CONTRIBUTING.md)
