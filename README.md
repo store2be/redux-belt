@@ -3,9 +3,11 @@
 [![Build Status](https://travis-ci.org/store2be/redux-belt.svg?branch=master)](https://travis-ci.org/store2be/redux-belt)
 [![codecov](https://codecov.io/gh/store2be/redux-belt/branch/master/graph/badge.svg)](https://codecov.io/gh/store2be/redux-belt)
 [![Code Climate](https://codeclimate.com/github/store2be/redux-belt.svg)](https://codeclimate.com/github/store2be/redux-belt)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f0e93f5a6530427ea7a0dce3979e4ae0)](https://www.codacy.com/app/peterfication/redux-belt)
 [![npm version](https://img.shields.io/npm/v/redux-belt.svg?style=flat-square)](https://www.npmjs.com/package/redux-belt)
 [![npm version](https://img.shields.io/npm/dm/redux-belt.svg?style=flat-square)](https://www.npmjs.com/package/redux-belt)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/store2be/redux-belt/blob/master/CONTRIBUTING.md)
+
 
 This library provides several highly opinionated helpers which ought to be useful while developing big apps with React, Redux and Sagas. These helpers ensure the keeping of best practices and their main goal is to reduce the amount of boilerplate introduced by Redux code, while avoiding conflict with Redux design decisions.
 
