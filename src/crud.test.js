@@ -191,7 +191,7 @@ describe('utils/crud', () => {
     })
 
     describe('on FETCH_INDEX', () => {
-      test('sets the index loading to true and ignores the payload', () => {
+      test('sets the index loading to true and sets the payload as new filters', () => {
         jsc.assertForall(generators.crudReducerState, jsc.dict(jsc.json), (state, payload) => {
           const before = JSON.stringify(state)
           const expected = JSON.stringify(update(state, {
@@ -201,6 +201,23 @@ describe('utils/crud', () => {
           const result = JSON.stringify(myCrudReducer(state, actions.fetchIndex(payload), actions))
           const after = JSON.stringify(state)
           return before === after && result === expected
+        })
+      })
+
+      describe('if setFilters: false is part of the payload', () => {
+        it('sets the index loading to true but leaves the old filters', () => {
+          jsc.assertForall(generators.crudReducerState, jsc.dict(jsc.json), (state, payload) => {
+            const before = JSON.stringify(state)
+            const expected = JSON.stringify(update(state, {
+              loading: { index: { $set: true } },
+            }))
+            const result = JSON.stringify(myCrudReducer(state, actions.fetchIndex({
+              ...payload,
+              setFilters: false,
+            }), actions))
+            const after = JSON.stringify(state)
+            return before === after && result === expected
+          })
         })
       })
     })
@@ -387,4 +404,3 @@ describe('utils/crud', () => {
     })
   })
 })
-

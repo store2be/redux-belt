@@ -5,6 +5,9 @@
 
 ## Unreleased
 
+## [0.4.0] - 2018-06-15
+* ✨ Add an option to not set filters on fetchIndex
+
 ## [0.3.0] - 2017-07-21
 * 🔨 Introduce crudReducer configurability
 Breaking changes:
@@ -27,4 +30,3 @@ Breaking changes:
 
 ## [0.1.0] - 2017-07-04
 * ✨ Initial version with usable CRUD helpers
-

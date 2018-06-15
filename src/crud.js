@@ -1,7 +1,7 @@
 import update from 'immutability-helper'
 
 import actions from './actions'
-import { replaceEntry } from './utils'
+import { replaceEntry, setFiltersMaybe } from './utils'
 
 const crudActionTypes = [
   'CANCEL_LOADING',
@@ -88,7 +88,7 @@ export const configureCrudReducer = extractors => (state, action, t) => {
 
     case t.FETCH_INDEX:
       return update(state, {
-        filters: { $set: payload || {} },
+        filters: { $apply: setFiltersMaybe(payload) },
         loading: {
           index: { $set: true },
         },

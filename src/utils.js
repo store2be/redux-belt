@@ -66,3 +66,14 @@ export function strict(target) { // target is our actionTypes object
     },
   })
 }
+
+/**
+ * If setFilters: false is part of the payload, we don't set the filters
+ */
+export const setFiltersMaybe = newFilters => (oldFilters) => {
+  const defaultFilters = {
+    setFilters: true,
+    ...newFilters,
+  }
+  return defaultFilters.setFilters ? newFilters : oldFilters
+}
